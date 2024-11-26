@@ -1,6 +1,6 @@
 //#include "R4WiFi_secrets.h"
-#define SECRET_SSID         "NSA-VAN-NUMBER-3";
-#define SECRET_PASS         "SteamP00p";
+#define SECRET_SSID         "your-SSID";
+#define SECRET_PASS         "Yor-SSID-Password";
 #include <R4HttpClient.h>
 WiFiServer server(80);
 int LED = 13;
