@@ -3,7 +3,6 @@
 #define SECRET_PASS         "Your SSID-Password";
 #include <R4HttpClient.h>
 
-
 /*
   Blink
 
@@ -35,6 +34,19 @@ R4HttpClient http;
 const char* _SSID = SECRET_SSID;
 const char* _PASS = SECRET_PASS;
 
+void printMacAddress(byte mac[]) {
+  for (int i=0; i<6; i++){
+    if(i>0) {
+      Serial.print(":");      
+    }
+    if(mac[i] <16) {
+      Serial.print("0");      
+    }
+    Serial.print(mac[i],HEX);  
+  }
+  Serial.println();  
+}
+
 void setup()
 {
   Serial.begin(115200);
@@ -60,6 +72,29 @@ void setup()
   }
   Serial.println();
   Serial.println(F("Successfully connected to WiFi!"));
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
+  long rssi = WiFi.RSSI();
+  Serial.print("Signal Strength (RSSI): ");
+  Serial.println(rssi);
+  byte encryption = WiFi.encryptionType();
+  Serial.print("Encryption Type: ");
+  Serial.println(encryption,HEX);
+  Serial.println();
+  byte mac[6];
+  WiFi.macAddress(mac);
+    Serial.print("MAC Address: ");
+  printMacAddress(mac);
+  //Serial.println();
+  byte bssid[6];
+  WiFi.BSSID(bssid);
+  Serial.print("BSSID: ");
+  printMacAddress(bssid);
+  Serial.println();
+
 
   //http.begin(client, "https://www.steamclown.org/projects/red_pill.html", 443);  
   http.begin(client, "https://icanhazdadjoke.com/slack", 443);
